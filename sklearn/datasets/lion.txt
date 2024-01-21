@@ -1,0 +1,3 @@
+['The lion is the king of the jungle',
+ 'Lions have lifespans of a decade',
+ 'The lion is an endangered species']
