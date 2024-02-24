@@ -1,0 +1,97 @@
+# Import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Create TfidfVectorizer object
+vectorizer = TfidfVectorizer()
+
+# Generate matrix of word vectors
+tfidf_matrix = vectorizer.fit_transform(ted)
+
+# Print the shape of tfidf_matrix
+print(tfidf_matrix.shape)
+
+***
+
+# Initialize an instance of tf-idf Vectorizer
+tfidf_vectorizer = TfidfVectorizer()
+
+# Generate the tf-idf vectors for the corpus
+tfidf_matrix = tfidf_vectorizer.fit_transform(corpus)
+
+# Compute and print the cosine similarity matrix
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+print(cosine_sim)
+
+#***
+
+# Record start time
+start = time.time()
+
+# Compute cosine similarity matrix
+cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
+# Print cosine similarity matrix
+print(cosine_sim)
+
+# Print time taken
+print("Time taken: %s seconds" %(time.time() - start))
+
+#***
+
+# Record start time
+start = time.time()
+
+# Compute cosine similarity matrix
+cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+# Print cosine similarity matrix
+print(cosine_sim)
+
+# Print time taken
+print("Time taken: %s seconds" %(time.time() - start))
+
+#***
+
+# Initialize the TfidfVectorizer 
+tfidf = TfidfVectorizer(stop_words='english')
+
+# Construct the TF-IDF matrix
+tfidf_matrix = tfidf.fit_transform(movie_plots)
+
+# Generate the cosine similarity matrix
+cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+ 
+# Generate recommendations 
+print(get_recommendations('The Dark Knight Rises', cosine_sim, indices))
+
+***
+
+# Generate mapping between titles and index
+indices = pd.Series(metadata.index, index=metadata['title']).drop_duplicates()
+
+def get_recommendations(title, cosine_sim, indices):
+    # Get index of movie that matches title
+    idx = indices[title]
+    # Sort the movies based on the similarity scores
+    sim_scores = list(enumerate(cosine_sim[idx]))
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    # Get the scores for 10 most similar movies
+    sim_scores = sim_scores[1:11]
+    # Get the movie indices
+    movie_indices = [i[0] for i in sim_scores]
+    # Return the top 10 most similar movies
+    return metadata['title'].iloc[movie_indices]
+
+***
+
+# Initialize the TfidfVectorizer 
+tfidf = TfidfVectorizer(stop_words='english')
+
+# Construct the TF-IDF matrix
+tfidf_matrix = tfidf.fit_transform(transcripts)
+
+# Generate the cosine similarity matrix
+cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+ 
+# Generate recommendations 
+print(get_recommendations('5 ways to kill your dreams', cosine_sim, indices))
